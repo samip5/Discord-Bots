@@ -1,6 +1,6 @@
 ##################################################
-##        I DO NOT OWN this code.               ##
-##            Author: Unkown                    ##
+##        I DO NOT OWN THIS CODE.               ##
+##            Author: Unknown                   ##
 ##################################################
 
 import asyncio
