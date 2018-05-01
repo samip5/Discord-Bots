@@ -18,10 +18,9 @@ config = parser.ConfigParser()
 config.read('./config.ini')
 
 token = config['secrets']['BOT-TOKEN']
-devToken = config['secrets']['BOT-DEVELOMENT-TOKEN']
 
 def get_prefix(bot, message):
-  prefixes = ['!']
+  prefixes = ['?']
   return commands.when_mentioned_or(*prefixes)(bot, message)
 
 initial_extensions = ['cogs.general',
@@ -52,5 +51,4 @@ async def on_error(event, *args, **kwargs):
 
 
 
-#bot.run(TOKEN, bot=True, reconnect=True)
-bot.run(devToken, bot=True, reconnect=True)
+bot.run(TOKEN, bot=True, reconnect=True)
