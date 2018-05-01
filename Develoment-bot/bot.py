@@ -24,7 +24,8 @@ def get_prefix(bot, message):
   return commands.when_mentioned_or(*prefixes)(bot, message)
 
 
-initial_extensions = ['cogs.general']
+initial_extensions = ['cogs.general',
+                      'cogs.plex']
 
 bot = commands.Bot(command_prefix=get_prefix, description="Samip's Develoment Bot")
 
@@ -48,7 +49,7 @@ async def on_message(message):
         await bot.say("Sorry, but you do not have sufficient privileges to access this bot.")
     else:
         await bot.process_commands(message)
-        
+
 @bot.event
 async def on_error(event, *args, **kwargs):
 	message = args[0]
