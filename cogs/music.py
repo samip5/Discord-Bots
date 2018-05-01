@@ -1,3 +1,8 @@
+##################################################
+##        I DO NOT OWN this code.               ##
+##            Author: Unkown                    ##
+##################################################
+
 import asyncio
 import discord
 from discord.ext import commands
@@ -19,7 +24,7 @@ class VoiceEntry:
         self.requester = message.author
         self.channel = message.channel
         self.player = player
-	
+
     def __str__(self):
         fmt = ' {0.title} uploaded by {0.uploader} and requested by {1.display_name}'
         duration = self.player.duration
