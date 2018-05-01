@@ -1,4 +1,4 @@
-import ConfigParser
+import configparser as parser
 
 import random
 import json
@@ -10,16 +10,13 @@ from plexapi.server import PlexServer
 from plexapi.library import Library
 from discord.ext import commands
 
-config = ConfigParser.ConfigParser()
-try:
-	config.read('../config.ini')
-except Exception as e:
-	mt = 'An error occurred while processing this request: ```py\n{}: {}\n```'
-	await self.bot.say(fmt.format(type(e).__name__, e))
+config = parser.ConfigParser()
 
-PLEX_TOKEN = config['secrets']['PLEX_TOKEN']
-PLEX_SRV = config['urls']['PLEX_SRV']
-PLEX_URL = config['urls']['PLEX_URL']
+config.read('../config.ini')
+
+plexToken = config['secrets']['PLEX_TOKEN']
+plexSRV = config['urls']['PLEX_SRV']
+plexURL = config['urls']['PLEX_URL']
 
 TAUTULLI_API_KEY = config['secrets']['TAUTULLI_API_KEY']
 TAUTULLI_BASE_URL = config['urls']['TAUTULLI_BASE_URL']
@@ -35,7 +32,7 @@ class Plex:
 	async def query_plex_streams(self):
 				sess = requests.Session()
 				sess.verify = False
-				plex = PlexServer(baseurl=PLEX_SRV,token=PLEX_TOKEN,session=sess)
+				plex = PlexServer(baseurl=plexSRV,token=plexToken,session=sess)
 				session_check = plex.sessions() == []
 				session_check_not_empty = plex.sessions() != []
 				#print (session_check)

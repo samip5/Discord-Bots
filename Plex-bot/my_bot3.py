@@ -2,36 +2,33 @@
 ## Discord bot which integrates with Ombi and Plex.   ##
 ##                                                    ##
 ## Author: samip5 				                      ##
-## Version: 0.1 				                      ##
+## Version: 0.2 				                      ##
 ########################################################
 
-import ConfigParser
-import random
-import requests
+import configparser as parser
 import discord
 import sys, traceback
 
-from plexapi.server import PlexServer
-from plexapi.library import Library
 from discord import __version__
 from discord import Game
 from discord.ext import commands
 
-config = ConfigParser.ConfigParser()
+config = parser.ConfigParser()
 
 config.read('./config.ini')
 
-TOKEN = config['secrets']['BOT-TOKEN']
+token = config['secrets']['BOT-TOKEN']
+devToken = config['secrets']['BOT-DEVELOMENT-TOKEN']
 
 def get_prefix(bot, message):
-  prefixes = ['?']
+  prefixes = ['!']
   return commands.when_mentioned_or(*prefixes)(bot, message)
 
 initial_extensions = ['cogs.general',
 			'cogs.error_handler',
-                        'cogs.plex',
+            'cogs.plex',
 			'cogs.ombi',
-			'cogs.random',
+			'cogs.misc',
 			'cogs.music']
 
 bot = commands.Bot(command_prefix=get_prefix, description="Samip's Advanced Bot")
@@ -55,4 +52,5 @@ async def on_error(event, *args, **kwargs):
 
 
 
-bot.run(TOKEN, bot=True, reconnect=True)
+#bot.run(TOKEN, bot=True, reconnect=True)
+bot.run(devToken, bot=True, reconnect=True)

@@ -6,8 +6,10 @@ import random
 
 import discord
 from discord.ext import commands
+from discord.ext.commands import cooldown
 
-class Random:
+
+class Misc:
 	def __init__(self, bot):
 		self.bot = bot
 
@@ -20,6 +22,7 @@ class Random:
 		description="Gives you a random cat picture",
 		brief="Cats",
 		pass_context=True)
+	@commands.cooldown(4, 30)
 	async def randomcat(self,context):
 		async with aiohttp.ClientSession() as ses:
 			async with ses.get('https://aws.random.cat/meow') as response:
@@ -29,5 +32,6 @@ class Random:
 		e.set_author(name="Random.cat", url='https://random.cat/')
 		e.set_footer(text="Powered by random.cat")
 		await self.bot.say(embed=e)
+
 def setup(bot):
-	bot.add_cog(Random(bot))
+	bot.add_cog(Misc(bot))
