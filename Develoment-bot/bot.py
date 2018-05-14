@@ -24,8 +24,7 @@ def get_prefix(bot, message):
   return commands.when_mentioned_or(*prefixes)(bot, message)
 
 
-initial_extensions = ['cogs.general',
-                      'cogs.plex']
+initial_extensions = ['cogs.misc']
 
 bot = commands.Bot(command_prefix=get_prefix, description="Samip's Develoment Bot")
 
