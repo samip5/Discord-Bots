@@ -21,18 +21,5 @@ class General:
 			]
 		await self.bot.say(random.choice(responses) + ", " + context.message.author.mention)
 
-	#@commands.command(name='8ball',
-	#	description="Answers a yes/no question.",
-	#	brief="Answers from the beyond.",
-	#	pass_context=True)
-	#async def eight_ball(self,context):
-        #	possible_responses = [
-	#		'That is a resounding no',
-	#		'It is not looking likely',
-	#		'Too hard to tell',
-	#		'It is quite possible',
-	#		'Definitely',
-	#		]
-	#	await self.bot.say(random.choice(possible_responses) + "," + context.message.author.mention)
 def setup(bot):
 	bot.add_cog(General(bot))

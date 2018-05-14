@@ -22,7 +22,7 @@ class Misc:
 		description="Gives you a random cat picture",
 		brief="Cats",
 		pass_context=True)
-	@commands.cooldown(4, 30, BucketType)
+	#@commands.cooldown(4, 30, BucketType)
 	async def randomcat(self,context):
 		async with aiohttp.ClientSession() as ses:
 			async with ses.get('https://aws.random.cat/meow') as response:

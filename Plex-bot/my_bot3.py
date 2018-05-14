@@ -17,10 +17,10 @@ config = parser.ConfigParser()
 
 config.read('./config.ini')
 
-token = config['secrets']['BOT-TOKEN']
+TOKEN = config['secrets']['BOT-DEVELOMENT-TOKEN']
 
 def get_prefix(bot, message):
-  prefixes = ['?']
+  prefixes = ['!!']
   return commands.when_mentioned_or(*prefixes)(bot, message)
 
 initial_extensions = ['cogs.general',
@@ -30,7 +30,7 @@ initial_extensions = ['cogs.general',
 			'cogs.misc',
 			'cogs.music']
 
-bot = commands.Bot(command_prefix=get_prefix, description="Samip's Advanced Bot")
+bot = commands.Bot(command_prefix=get_prefix)
 if __name__ == '__main__':
         for extension in initial_extensions:
                 try:
@@ -41,7 +41,7 @@ if __name__ == '__main__':
 @bot.event
 async def on_ready():
         print (f'\n\nLogged in as: {bot.user.name} - {bot.user.id}\nAPI Version: {discord.__version__}\n')
-        await bot.change_presence(game=Game(name="with humans"))
+        await bot.change_presence(game=Game(name="with code"))
         print (f'Successfully connected.')
 
 @bot.event

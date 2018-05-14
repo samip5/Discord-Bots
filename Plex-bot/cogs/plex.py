@@ -1,29 +1,20 @@
-import configparser as parser
-
 import random
 import json
 import aiohttp
+import requests
 import discord
-
 
 from plexapi.server import PlexServer
 from plexapi.library import Library
 from discord.ext import commands
 
-config = parser.ConfigParser()
 
-config.read('../config.ini')
+plexToken = ""
+plexSRV = ""
+plexURL = ""
 
-#############################################
-##	     Config does not work yet.		   ##
-#############################################
-
-plexToken = config['secrets']['PLEX_TOKEN']
-plexSRV = config['urls']['PLEX_SRV']
-plexURL = config['urls']['PLEX_URL']
-
-TAUTULLI_API_KEY = config['secrets']['TAUTULLI_API_KEY']
-TAUTULLI_BASE_URL = config['urls']['TAUTULLI_BASE_URL']
+TAUTULLI_API_KEY = ""
+TAUTULLI_BASE_URL = "https://"
 
 class Plex:
 	def __init__(self, bot):
@@ -44,13 +35,31 @@ class Plex:
 				#if session_check_not_empty:
 				for session in plex.sessions():
 					state = session.players[0].state
+					duration = session.duration
 					duration_millis = session.duration
 					duration_seconds=(duration_millis/1000)%60
 					duration_seconds = int(duration_seconds)
 					duration_minutes=(duration_millis/(1000*60))%60
 					duration_minutes = int(duration_minutes)
 					duration_hours = hours=(duration_millis/(1000*60*60))%24
-					total_duration = ("%d Hours %d Minutes" % (duration_hours, duration_minutes))
+					if(duration_hours == 0):
+						total_duration = ("%d Minutes" % (duration_minutes))
+					if(duration_hours != 0):
+						total_duration = ("%d Hours and %d Minutes" % (duration_hours, duration_minutes))
+					view_offset = session.viewOffset
+					view_offset_millis = session.viewOffset
+					view_offset_seconds=(view_offset_millis/1000)%60
+					view_offset_seconds = int(view_offset_seconds)
+					view_offset_minutes=(view_offset_millis/(1000*60))%60
+					view_offset_minutes = int(view_offset_minutes)
+					view_offset_hours = hours=round((view_offset_millis/(1000*60*60)))%24
+					if(view_offset_hours == 0):
+						offset = ("%d Minutes" % (view_offset_minutes))
+					if(view_offset_hours != 0):
+						offset = ("%d Hours and %d Minutes" % (view_offset_hours, view_offset_minutes))
+					#print(view_offset)
+					#print(view_offset_hours)
+					percentage = round(view_offset / duration * 100)
 					username = session.usernames[0]
 					title = (session.grandparentTitle + ' - ' if session.type == 'episode' else '') + session.title
 					state = session.players[0].state
@@ -58,10 +67,10 @@ class Plex:
 					embed.add_field(name="Username", value="{}".format(username))
 					embed.add_field(name="Title", value="".join(title), inline=False)
 					embed.add_field(name="State", value="".join(state), inline=False)
+					embed.add_field(name="Watched Duration", value="{watched} ({procent} %)".format(watched=offset, procent=percentage),inline=False)
 					embed.add_field(name="Total Duration", value="".join(total_duration), inline=False)
+					embed.set_footer(text="Powered by plexapi.")
 					await self.bot.say(embed=embed)
-					#await self.bot.say("Currently streaming: \n")
-					#await self.bot.say("- {user} with {tittle} (Status: {state})".format(user=username, tittle=title, state=state))
 				if session_check:
 					await self.bot.say("Nothing is currently streaming.")
 
@@ -127,4 +136,4 @@ class Plex:
 						break
 def setup(bot):
 	bot.add_cog(Plex(bot))
-	print ("Plex extension loaded.")
+	print ("Plex extension is loaded.")
