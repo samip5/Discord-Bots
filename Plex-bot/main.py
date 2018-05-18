@@ -2,7 +2,7 @@
 ## Discord bot which integrates with Ombi and Plex.   ##
 ##                                                    ##
 ## Author: samip5 				                      ##
-## Version: 0.2 				                      ##
+## Version: 0.3 				                      ##
 ########################################################
 
 import configparser as parser
@@ -43,11 +43,6 @@ async def on_ready():
         print (f'\n\nLogged in as: {bot.user.name} - {bot.user.id}\nAPI Version: {discord.__version__}\n')
         await bot.change_presence(game=Game(name="with code"))
         print (f'Successfully connected.')
-
-@bot.event
-async def on_error(event, *args, **kwargs):
-	message = args[0]
-	await bot.say(message.channel, "You caused an error.")
 
 
 
