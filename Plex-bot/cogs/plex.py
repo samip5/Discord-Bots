@@ -1,4 +1,7 @@
+## Author: samip5
+
 import random
+import time
 import json
 import aiohttp
 import requests
@@ -9,9 +12,9 @@ from plexapi.library import Library
 from discord.ext import commands
 
 
-plexToken = ""
-plexSRV = ""
-plexURL = ""
+PLEX_TOKEN = ""
+PLEX_SRV = ""
+PLEX_URL = ""
 
 TAUTULLI_API_KEY = ""
 TAUTULLI_BASE_URL = "https://"
@@ -27,12 +30,9 @@ class Plex:
 	async def query_plex_streams(self):
 				sess = requests.Session()
 				sess.verify = False
-				plex = PlexServer(baseurl=plexSRV,token=plexToken,session=sess)
+				plex = PlexServer(baseurl=PLEX_SRV,token=PLEX_TOKEN,session=sess)
 				session_check = plex.sessions() == []
 				session_check_not_empty = plex.sessions() != []
-				#print (session_check)
-				#print (plex.sessions())
-				#if session_check_not_empty:
 				for session in plex.sessions():
 					state = session.players[0].state
 					duration = session.duration
@@ -52,16 +52,16 @@ class Plex:
 					view_offset_seconds = int(view_offset_seconds)
 					view_offset_minutes=(view_offset_millis/(1000*60))%60
 					view_offset_minutes = int(view_offset_minutes)
-					view_offset_hours = hours=round((view_offset_millis/(1000*60*60)))%24
+					view_offset_hours = hours=((view_offset_millis/(1000*60*60)))%24
 					if(view_offset_hours == 0):
 						offset = ("%d Minutes" % (view_offset_minutes))
 					if(view_offset_hours != 0):
 						offset = ("%d Hours and %d Minutes" % (view_offset_hours, view_offset_minutes))
-					#print(view_offset)
-					#print(view_offset_hours)
+					print("ms: %d" % (view_offset))
+					print(view_offset_hours)
 					percentage = round(view_offset / duration * 100)
 					username = session.usernames[0]
-					title = (session.grandparentTitle + ' - ' if session.type == 'episode' else '') + session.title
+					title = (session.grandparentTitle + ' - ' +  if session.type == 'episode' else '') + session.title
 					state = session.players[0].state
 					embed = discord.Embed(title="Currently streaming", description="", color=0x00ff00)
 					embed.add_field(name="Username", value="{}".format(username))
@@ -101,12 +101,8 @@ class Plex:
 						thumbail_not_full = (f['response']['data']['results_list']['show'][entry]['thumb'])
 						tv_plex_token = '?checkFiles=1&X-Plex-Token=' + PLEX_TOKEN
 						tv_generated_url = PLEX_URL + thumbail_not_full + tv_plex_token
-						#print (generated_url)
 						tv_embed = discord.Embed(title="Search results for TV", description="", color=0x00ff00)
 						tv_embed.set_thumbnail(url=tv_generated_url)
-						#print (title)
-						#print (year)
-						#print (desc)
 						tv_embed.add_field(name="Title", value=title)
 						tv_embed.add_field(name="Year", value=year)
 						tv_embed.add_field(name="Summary", value=desc)
