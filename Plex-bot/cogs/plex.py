@@ -56,9 +56,9 @@ class Plex:
 						offset = ("%d Hours and %d Minutes" % (view_offset_hours, view_offset_minutes))
 					else:
 						offset = ("%d Minutes" % (view_offset_minutes))
-					print("ms: %d" % (view_offset))
-					print("Minutes: %d" % (view_offset_minutes))
-					print("Hours: %d" % (view_offset_hours))
+					#print("ms: %d" % (view_offset))
+					#print("Minutes: %d" % (view_offset_minutes))
+					#print("Hours: %d" % (view_offset_hours))
 					percentage = round(view_offset / duration * 100)
 					username = session.usernames[0]
 					if(session.type == 'episode'):
@@ -72,7 +72,7 @@ class Plex:
 						year = ("(%d)" % (session.year))
 						current_movie_token = '?checkFiles=1&X-Plex-Token=' + PLEX_TOKEN
 						current_movie_thumb = PLEX_URL + session.thumb + current_movie_token
-						print(current_movie_thumb)
+						#print(current_movie_thumb)
 						title = session.title + ' ' + year
 					state = session.players[0].state
 					player = session.players[0].platform
