@@ -20,7 +20,7 @@ config.read('./config.ini')
 TOKEN = config['secrets']['BOT-DEVELOMENT-TOKEN']
 
 def get_prefix(bot, message):
-  prefixes = ['!!']
+  prefixes = ['!']
   return commands.when_mentioned_or(*prefixes)(bot, message)
 
 initial_extensions = ['cogs.general',

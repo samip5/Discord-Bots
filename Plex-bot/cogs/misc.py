@@ -56,7 +56,7 @@ class Misc:
 
 	@commands.command(name='cat',
 		description="Gives you a random cat picture",
-		brief="Cats",
+		brief="Returns random image of a cat",
 		pass_context=True)
 	#@commands.cooldown(4, 30, BucketType)
 	async def randomcat(self,context):
