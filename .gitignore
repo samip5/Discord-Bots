@@ -4,6 +4,9 @@ __pycache__/*
 Plex-bot/cogs/__pycache__
 Develoment-bot/cogs/__pycache__
 
+# Temp files
+.invisible
+
 # Plex bot related files
 Plex-bot/config.ini
 Plex-bot/*/test.py

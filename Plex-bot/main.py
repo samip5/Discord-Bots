@@ -24,7 +24,6 @@ def get_prefix(bot, message):
   return commands.when_mentioned_or(*prefixes)(bot, message)
 
 initial_extensions = ['cogs.general',
-			'cogs.error_handler',
             'cogs.plex',
 			'cogs.ombi',
 			'cogs.misc',

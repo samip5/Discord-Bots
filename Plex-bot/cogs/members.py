@@ -12,11 +12,6 @@ class Members:
         """Says when a member joined."""
         await ctx.send(f'{member.display_name} joined on {member.joined_at}')
 
-    @commands.command(name='coolbot')
-    async def cool_bot(self, ctx):
-        """Is the bot cool?"""
-        await ctx.send('This bot is cool. :)')
-
     @commands.command(name='top_role', aliases=['toprole'])
     #@commands.guild_only()
     async def show_toprole(self, ctx, *, member: discord.Member=None):
@@ -26,7 +21,7 @@ class Members:
             member = ctx.author
 
         await ctx.send(f'The top role for {member.display_name} is {member.top_role.name}')
-    
+
     @commands.command(name='perms', aliases=['perms_for', 'permissions'])
     #@commands.guild_only()
     async def check_permissions(self, ctx, *, member: discord.Member=None):

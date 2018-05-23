@@ -150,4 +150,4 @@ class Plex:
 						break
 def setup(bot):
 	bot.add_cog(Plex(bot))
-	print ("Plex extension is loaded.")
+	print ("Plex extension has been loaded.")

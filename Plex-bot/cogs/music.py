@@ -234,4 +234,4 @@ class Music:
 
 def setup(bot):
     bot.add_cog(Music(bot))
-    print('Music extension is loaded')
+    print('Music extension has been loaded.')
