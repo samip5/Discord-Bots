@@ -94,6 +94,7 @@ class Pmrs:
 		pmrs_api_base = config.get('api-urls', 'ombi_api_base')
 		pmrs_api_token = config.get('secrets', 'PMRS_API_KEY')
 		pmrs_endpoint = config.get('api-urls', 'search_populartv')
+		imdb_url_base = config.get('urls', 'IMDB_URL')
 		pmrs_full_endpoint = pmrs_url + pmrs_api_base + pmrs_endpoint
 		request_headers = {'apiKey': pmrs_api_token, 'content-type': 'application/json'}
 		async with aiohttp.ClientSession() as ses:
@@ -105,9 +106,12 @@ class Pmrs:
 					aired_from_string = datetime.datetime.strptime(first_aired, '%Y-%m-%dT%H:%M:%S')
 					formatted_aired = aired_from_string.strftime('%B %d, %Y')
 					desc = entry['overview']
-					embed = discord.Embed(title="Currently popular TV Shows", description="",color=0x00ff00)
+					imdbId = entry['imdbId']
+					imdb_url_full = imdb_url_base + imdbId
+					embed = discord.Embed(title="Currently popular TV shows", description="",color=0x00ff00)
 					embed.add_field(name="Title", value="".join(title),inline=False)
 					embed.add_field(name="First Aired", value="".join(formatted_aired), inline=False)
+					embed.add_field(name="IMDb", value="".join(imdb_url_full), inline=False)
 					embed.add_field(name="Description", value="".join(desc), inline=False)
 					embed.set_footer(text="This data is gathered from PMRS's API.")
 					await self.bot.say(embed=embed)
@@ -121,7 +125,8 @@ class Pmrs:
 		pmrs_api_token = config.get('secrets', 'PMRS_API_KEY')
 		pmrs_endpoint = config.get('api-urls', 'search_popularmovie')
 		pmrs_full_endpoint = pmrs_url + pmrs_api_base + pmrs_endpoint
-		tvdb_image_not_full = config.get('urls', 'TVMD_IMAGE_URL')
+		tmdb_image_not_full = config.get('urls', 'TVMD_IMAGE_URL')
+		tmdb_base_url = config.get('urls', 'TMDB_URL')
 		request_headers = {'apiKey': pmrs_api_token, 'content-type': 'application/json'}
 		async with aiohttp.ClientSession() as ses:
 			async with ses.get(pmrs_full_endpoint, headers=request_headers) as response:
@@ -133,10 +138,13 @@ class Pmrs:
 					formatted_released = released_from_string.strftime('%B %d, %Y')
 					desc = entry['overview']
 					picture_url = entry['posterPath']
-					generated_picture_url = tvdb_image_not_full + picture_url
-					embed = discord.Embed(title="Currently popular TV Shows", description="",color=0x00ff00)
+					moviedbID = entry['theMovieDbId']
+					generated_picture_url = tmdb_image_not_full + picture_url
+					generated_tmdb_url = tmdb_base_url + moviedbID
+					embed = discord.Embed(title="Currently popular movies", description="",color=0x00ff00)
 					embed.add_field(name="Title", value="".join(title),inline=False)
 					embed.add_field(name="Release date", value="".join(formatted_released), inline=False)
+					embed.add_field(name="TMDB", value="".join(generated_tmdb_url), inline=False)
 					embed.add_field(name="Description", value="".join(desc), inline=False)
 					embed.set_thumbnail(url=generated_picture_url)
 					embed.set_footer(text="This data is gathered from PMRS's API.")
