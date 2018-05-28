@@ -20,11 +20,11 @@ config.read('./config.ini')
 token = config['secrets']['BOT-DEVELOMENT-TOKEN']
 
 def get_prefix(bot, message):
-  prefixes = ['!']
+  prefixes = ['!!']
   return commands.when_mentioned_or(*prefixes)(bot, message)
 
 
-initial_extensions = ['cogs.misc']
+initial_extensions = ['cogs.misc','cogs.plex']
 
 bot = commands.Bot(command_prefix=get_prefix, description="Samip's Develoment Bot")
 
