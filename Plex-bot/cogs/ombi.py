@@ -1,29 +1,23 @@
 ## Author: samip5
 
 import configparser as parser
-import random
 import datetime
-import json
-import aiohttp
-import requests
-import discord
-import os
 
+import aiohttp
+import discord
 from discord.ext import commands
+
 
 class Pmrs:
 	def __init__(self, bot):
 		self.bot = bot
 
-	@commands.group(name='pmrs-search',
-		description="Search from Plex Media Request System",
-		brief="Search pmrs",
-		pass_context=True)
+	@commands.group(name='pmrs-search', description="Search from Plex Media Request System", brief="Search pmrs", pass_context=True)
 	async def search_ombi(self, context):
-		if(context.invoked_subcommand is None):
-			embed=discord.Embed(title="Plex Media System - Search", color=0xdc1112)
+		if context.invoked_subcommand is None:
+			embed = discord.Embed(title="Plex Media System - Search", color=0xdc1112)
 			embed.add_field(name="How to use search with it?", value="If you wish to search for movies, you have to specify it after this command `movie <replaceme-with-title>`.\nIf you wish to search for tv shows, you have to specify it after this command `tv <replaceme-with-series>`.", inline=False)
-			embed.add_field(name="How to lookup most popular content?", value="If you wish to lookup popular movies, execute `popularmovie` after this command.\nIf you wish to lookup popular TV Shows, execute `populartv` after this command.",inline=False)
+			embed.add_field(name="How to lookup most popular content?", value="If you wish to lookup popular movies, execute `popularmovie` after this command.\nIf you wish to lookup popular TV Shows, execute `populartv` after this command.", inline=False)
 			await self.bot.say(embed=embed)
 
 	@search_ombi.command()
@@ -48,8 +42,8 @@ class Pmrs:
 					formatted_released = released_from_string.strftime('%B %d, %Y')
 					desc = entry['overview']
 					generated_url_for_thumb = tvdb_image_not_full + poster_path
-					embed = discord.Embed(title="PMRS - Search Results for Movie", description="",color=0x00ff00)
-					embed.add_field(name="Title", value="".join(title),inline=False)
+					embed = discord.Embed(title="PMRS - Search Results for Movie", description="", color=0x00ff00)
+					embed.add_field(name="Title", value="".join(title), inline=False)
 					embed.add_field(name="Release Date", value="".join(formatted_released), inline=False)
 					embed.add_field(name="Description", value="".join(desc), inline=False)
 					embed.set_thumbnail(url=generated_url_for_thumb)
@@ -77,9 +71,9 @@ class Pmrs:
 					formatted_aired = aired_from_string.strftime('%B %d, %Y')
 					network = entry['network']
 					desc = entry['overview']
-					embed = discord.Embed(title="PMRS - Search Results for TV", description="",color=0x00ff00)
-					embed.add_field(name="Title", value="".join(title),inline=False)
-					embed.add_field(name="Airing Network", value="".join(network),inline=False)
+					embed = discord.Embed(title="PMRS - Search Results for TV", description="", color=0x00ff00)
+					embed.add_field(name="Title", value="".join(title), inline=False)
+					embed.add_field(name="Airing Network", value="".join(network), inline=False)
 					embed.add_field(name="First Aired", value="".join(formatted_aired), inline=False)
 					embed.add_field(name="Description", value="".join(desc), inline=False)
 					embed.set_thumbnail(url=banner)
@@ -108,8 +102,8 @@ class Pmrs:
 					desc = entry['overview']
 					imdbId = entry['imdbId']
 					imdb_url_full = imdb_url_base + imdbId
-					embed = discord.Embed(title="Currently popular TV shows", description="",color=0x00ff00)
-					embed.add_field(name="Title", value="".join(title),inline=False)
+					embed = discord.Embed(title="Currently popular TV shows", description="", color=0x00ff00)
+					embed.add_field(name="Title", value="".join(title), inline=False)
 					embed.add_field(name="First Aired", value="".join(formatted_aired), inline=False)
 					embed.add_field(name="IMDb", value="".join(imdb_url_full), inline=False)
 					embed.add_field(name="Description", value="".join(desc), inline=False)
@@ -141,8 +135,8 @@ class Pmrs:
 					moviedbID = entry['theMovieDbId']
 					generated_picture_url = tmdb_image_not_full + picture_url
 					generated_tmdb_url = tmdb_base_url + moviedbID
-					embed = discord.Embed(title="Currently popular movies", description="",color=0x00ff00)
-					embed.add_field(name="Title", value="".join(title),inline=False)
+					embed = discord.Embed(title="Currently popular movies", description="", color=0x00ff00)
+					embed.add_field(name="Title", value="".join(title), inline=False)
 					embed.add_field(name="Release date", value="".join(formatted_released), inline=False)
 					embed.add_field(name="TMDB", value="".join(generated_tmdb_url), inline=False)
 					embed.add_field(name="Description", value="".join(desc), inline=False)
@@ -153,4 +147,4 @@ class Pmrs:
 
 def setup(bot):
 	bot.add_cog(Pmrs(bot))
-	print ("Ombi extension has been loaded.")
+	print("Ombi extension has been loaded.")

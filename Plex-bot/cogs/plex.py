@@ -23,9 +23,7 @@ class Plex:
 	def __init__(self, bot):
 		self.bot = bot
 
-	@commands.command(name='streams',
-                description="Returns currently playing streams on Plex.",
-                brief="Display current streams")
+	@commands.command(name='streams', description="Returns currently playing streams on Plex.", brief="Display current streams")
 	async def query_plex_streams(self):
 				sess = requests.Session()
 				sess.verify = False
@@ -36,43 +34,43 @@ class Plex:
 					state = session.players[0].state
 					duration = session.duration
 					duration_millis = session.duration
-					duration_seconds=(duration_millis/1000)%60
+					duration_seconds = (duration_millis/1000)%60
 					duration_seconds = int(duration_seconds)
-					duration_minutes=(duration_millis/(1000*60))%60
+					duration_minutes = (duration_millis/(1000*60))%60
 					duration_minutes = int(duration_minutes)
 					duration_hours = hours=(duration_millis/(1000*60*60))%24
-					if(duration_hours >=1):
+					if duration_hours >=1:
 						total_duration = ("%d Hours and %d Minutes" % (duration_hours, duration_minutes))
 					else:
 						total_duration = ("%d Minutes" % (duration_minutes))
 					view_offset = session.viewOffset
 					view_offset_millis = session.viewOffset
-					view_offset_seconds=(view_offset_millis/1000)%60
+					view_offset_seconds = (view_offset_millis/1000)%60
 					view_offset_seconds = int(view_offset_seconds)
 					view_offset_minutes=(view_offset_millis/(1000*60))%60
 					view_offset_minutes = int(view_offset_minutes)
-					view_offset_hours = hours=((view_offset_millis/(1000*60*60)))%24
-					if(view_offset_hours >=1):
+					view_offset_hours = hours=(view_offset_millis/(1000*60*60))%24
+					if view_offset_hours >=1:
 						offset = ("%d Hours and %d Minutes" % (view_offset_hours, view_offset_minutes))
 					else:
 						offset = ("%d Minutes" % (view_offset_minutes))
-					#print("ms: %d" % (view_offset))
-					#print("Minutes: %d" % (view_offset_minutes))
-					#print("Hours: %d" % (view_offset_hours))
+					# print("ms: %d" % (view_offset))
+					# print("Minutes: %d" % (view_offset_minutes))
+					# print("Hours: %d" % (view_offset_hours))
 					percentage = round(view_offset / duration * 100)
 					username = session.usernames[0]
-					if(session.type == 'episode'):
+					if session.type == 'episode':
 						episode_number = int(session.index)
 						season = int(session.parentIndex)
 						season_and_ep_formatted = ("(s%d:e%d)" % (season, episode_number))
 						current_tv_token = '?checkFiles=1&X-Plex-Token=' + PLEX_TOKEN
 						current_tv_thumb = PLEX_URL + session.thumb + current_tv_token
 						title = session.grandparentTitle + ' - ' + session.title + ' ' + season_and_ep_formatted
-					if(session.type == 'movie'):
+					if session.type == 'movie':
 						year = ("(%d)" % (session.year))
 						current_movie_token = '?checkFiles=1&X-Plex-Token=' + PLEX_TOKEN
 						current_movie_thumb = PLEX_URL + session.thumb + current_movie_token
-						#print(current_movie_thumb)
+						# print(current_movie_thumb)
 						title = session.title + ' ' + year
 					state = session.players[0].state
 					player = session.players[0].platform
@@ -83,7 +81,7 @@ class Plex:
 					embed.add_field(name="State", value="".join(state), inline=False)
 					embed.add_field(name="Watched Duration", value="{watched} ({procent} %)".format(watched=offset, procent=percentage),inline=False)
 					embed.add_field(name="Total Duration", value="".join(total_duration), inline=False)
-					if(session.type == 'episode'):
+					if session.type == 'episode':
 						embed.set_thumbnail(url=current_tv_thumb)
 					else:
 						embed.set_thumbnail(url=current_movie_thumb)
@@ -92,14 +90,11 @@ class Plex:
 				if session_check:
 					await self.bot.say("Nothing is currently streaming.")
 
-	@commands.command(name='plex-search',
-        	        description="Search from PLex",
-                	brief="Search Plex")
-	#@commands.guild_only()
+	@commands.command(name='plex-search', description="Search from PLex", brief="Search Plex")
 	async def search_plex_though_tautulli(self, input):
 		tautulli_url = "{tautulli_base_url}api/v2?apikey={api_key}&cmd=search&query={string}".format(tautulli_base_url=TAUTULLI_BASE_URL,api_key=TAUTULLI_API_KEY,string=input)
-		#tautulli_query = "{string}"
-		#print (f'Plex Extension: Tautulli API called with query string of' tautulli_query)
+		# tautulli_query = "{string}"
+		# print (f'Plex Extension: Tautulli API called with query string of' tautulli_query)
 		async with aiohttp.ClientSession() as ses:
 			async with ses.get(tautulli_url) as resp:
 				a = await resp.json()
@@ -148,6 +143,8 @@ class Plex:
 					else:
 						await self.bot.say("Unable to find anything.")
 						break
+
+
 def setup(bot):
 	bot.add_cog(Plex(bot))
 	print ("Plex extension has been loaded.")
