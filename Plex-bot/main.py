@@ -1,8 +1,8 @@
 ########################################################
 ## Discord bot which integrates with Ombi and Plex.   ##
 ##                                                    ##
-## Author: samip5 				                      ##
-## Version: 0.4 				                      ##
+## Author: samip5 				      ##
+## Version: 0.4 				      ##
 ########################################################
 
 import configparser as parser
