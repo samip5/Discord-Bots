@@ -21,15 +21,15 @@ config.read('./config.ini')
 TOKEN = config['secrets']['BOT-DEVELOMENT-TOKEN']
 
 logger_info = logging.getLogger('discord')
-#logger_debug = logging.getLogger('discord')
+# logger_debug = logging.getLogger('discord')
 logger_info.setLevel(logging.INFO)
-#logger_debug.setLevel(logging.DEBUG)
+# logger_debug.setLevel(logging.DEBUG)
 logFile_info_handler = logging.FileHandler(filename='discord_info.log', encoding='utf-8', mode='w')
-#logFile_debug_handler = logging.FileHandler(filename='discord_debug.log', encoding='utf-8', mode='w')
+# logFile_debug_handler = logging.FileHandler(filename='discord_debug.log', encoding='utf-8', mode='w')
 logFile_info_handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-#logFile_debug_handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+# logFile_debug_handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger_info.addHandler(logFile_info_handler)
-#logger_debug.addHandler(logFile_debug_handler)
+# logger_debug.addHandler(logFile_debug_handler)
 
 def get_prefix(bot, message):
 	prefixes = ['!']
