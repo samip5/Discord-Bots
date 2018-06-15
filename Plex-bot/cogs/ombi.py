@@ -1,4 +1,4 @@
-## Author: samip5
+# Author: samip5
 
 import configparser as parser
 import datetime

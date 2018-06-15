@@ -1,9 +1,8 @@
-import random
-import os, sys
+import os
+import sys
 
 import discord
 from discord.ext import commands
-from discord import __version__
 
 
 class General:
@@ -26,14 +25,14 @@ class General:
 		await self.bot.reply("You requested it", embed=embed)
 
 	@commands.group(name="faq", brief="Frequently Asked Questions", pass_context=True)
-	async def Frequently_Asked_Questions(self, context):
+	async def frequently_asked_questions(self, context):
 		if context.invoked_subcommand is None:
 			embed = discord.Embed(title="Frequently Asked Questions")
 			embed.add_field(name="Want to know about the requests system?", value="Just execute this command with with `requests` after it.", inline=False)
 			await self.bot.say(embed=embed)
 		pass
 
-	@Frequently_Asked_Questions.command()
+	@frequently_asked_questions.command()
 	async def requests(self):
 		embed=discord.Embed(title="Plex Media Request System FAQ", color=0xdc1111)
 		embed.add_field(name="1. Where can I find it?", value="It's located at: https://home.samip.fi/pmrs/", inline=False)
