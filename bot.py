@@ -39,7 +39,7 @@ async def on_ready():
 	for Server in bot.servers:
 		ch = bot.get_channel(Server.id)
 		if ch:
-			await bot.send_message(channel, "Hello from Heroku!")
+			await bot.send_message(ch, "Hello from Heroku!")
 
 
 # bot.run(token, bot=True, reconnect=True)
