@@ -37,8 +37,7 @@ async def on_ready():
 	await bot.change_presence(game=Game(name="with code on Heroku"))
 	print(f'Successfully connected.')
 	for Server in bot.servers:
-		ch = bot.get_channel(Server.id)
-		print(ch)
+		ch = bot.get_channel("439505913867403275")
 		if ch:
 			await bot.send_message(ch, "Hello from Heroku!")
 
