@@ -1,3 +1,7 @@
+/ IDEA Files
+.idea/*
+
+
 cogs/private.py
 
 config.ini
