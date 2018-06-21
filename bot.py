@@ -8,6 +8,7 @@ import traceback
 
 import discord
 from discord import Game
+from discord import Server
 from discord.ext import commands
 
 token = os.environ['TOKEN']
@@ -34,9 +35,9 @@ if __name__ == '__main__':
 @bot.event
 async def on_ready():
 	print(f'\n\nLogged in as: {bot.user.name} - {bot.user.id}\nAPI Version: {discord.__version__}\n')
-	await bot.change_presence(game=Game(name="with code on Heroku!"))
+	await bot.change_presence(game=Game(name="with code on Heroku"))
 	print(f'Successfully connected.')
-	await bot.send_message(Server.default_channel, "Hello Heroku!")
+	await bot.send_message(Server, "Hello Heroku!")
 
 
 # bot.run(token, bot=True, reconnect=True)
