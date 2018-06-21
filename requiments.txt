@@ -1,0 +1,6 @@
+discord.py[voice]
+aiohttp
+websockets
+chardet
+plexapi
+requests
