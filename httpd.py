@@ -8,14 +8,13 @@ class samip537FunHTTPServer_RequestHandler(BaseHTTPRequestHandler):
 	def do_GET(self):
 		rootdir = os.getcwd()
 		try:
-			if self.path.endswitch('.html'):
-				f = open(rootdir + self.path)
+				f = open(rootdir + "\index.html")
 
 				self.send_response(200)
 				self.send_header('Contet-type', 'text/html')
 				self.end_headers()
 
-				self.wfile.write(f.read())
+				self.wfile.write(bytes(f.read(), "utf8"))
 				f.close()
 				return
 		except IOError:
@@ -31,7 +30,7 @@ class samip537FunHTTPServer_RequestHandler(BaseHTTPRequestHandler):
 def run_httpd():
 	print('Starting HTTPD server....')
 
-	port = int(os.environ.get('PORT', 5000))
+	port = int(os.environ.get('PORT', 8080))
 	server_address = ('0.0.0.0', port)
 	httpd = HTTPServer(server_address, samip537FunHTTPServer_RequestHandler)
 	httpd.serve_forever()
