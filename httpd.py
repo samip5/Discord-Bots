@@ -1,3 +1,5 @@
+import os
+
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
@@ -15,9 +17,9 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
 def run_httpd():
 	print('Starting HTTPD server....')
 
-	server_address = ('0.0.0.0', 8000)
+	port = int(os.environ.get('PORT', 5000))
+	server_address = ('0.0.0.0', port)
 	httpd = HTTPServer(server_address,testHTTPServer_RequestHandler)
-	print('running server....')
 	httpd.serve_forever()
 
 
