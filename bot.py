@@ -3,11 +3,14 @@
 
 
 import sys
+import os
 import traceback
 
 import discord
 from discord import Game
 from discord.ext import commands
+
+token = os.environ['TOKEN']
 
 
 def get_prefix(bot, message):
@@ -36,3 +39,4 @@ async def on_ready():
 
 
 # bot.run(token, bot=True, reconnect=True)
+bot.run(token, bot=True, reconnect=True)
