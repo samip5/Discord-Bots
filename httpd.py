@@ -1,5 +1,4 @@
 import os
-import http.mimetype
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
