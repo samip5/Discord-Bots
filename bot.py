@@ -6,11 +6,20 @@ import sys
 import os
 import traceback
 
+import http.server
+import SocketServer
+
 import discord
 from discord import *
 from discord.ext import commands
 
 token = os.environ['TOKEN']
+
+Handler = http.server.SimpleHTTPRequestHandler
+
+PORT = 8000
+
+httpd = SocketServer.TCPServer(("", PORT), Handler)
 
 
 def get_prefix(bot, message):
@@ -38,9 +47,11 @@ async def on_ready():
 	print(f'Successfully connected.')
 	for Server in bot.servers:
 		ch = bot.get_channel(Server.id)
+		print(ch)
 		if ch:
 			await bot.send_message(ch, "Hello from Heroku!")
 
 
 # bot.run(token, bot=True, reconnect=True)
 bot.run(token, bot=True, reconnect=True)
+httpd.serve_forever()
