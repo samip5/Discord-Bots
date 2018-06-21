@@ -37,7 +37,7 @@ async def on_ready():
 	print(f'\n\nLogged in as: {bot.user.name} - {bot.user.id}\nAPI Version: {discord.__version__}\n')
 	await bot.change_presence(game=Game(name="with code on Heroku"))
 	print(f'Successfully connected.')
-	await bot.send_message(Server.default_channel, "Hello Heroku!")
+	await bot.get_channel(Server.id).send("Hello from Heroku!")
 
 
 # bot.run(token, bot=True, reconnect=True)
