@@ -54,4 +54,4 @@ async def on_error(event, *args, **kwargs):
 	await bot.say(message.channel, "You caused an error.")
 
 
-bot.run(token, bot=True, reconnect=True)
+# bot.run(token, bot=True, reconnect=True)
