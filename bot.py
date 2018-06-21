@@ -7,7 +7,7 @@ import os
 import traceback
 
 import http.server
-import SocketServer
+import socketserver
 
 import discord
 from discord import *
@@ -19,7 +19,7 @@ Handler = http.server.SimpleHTTPRequestHandler
 
 PORT = 8000
 
-httpd = SocketServer.TCPServer(("", PORT), Handler)
+httpd = socketserver.TCPServer(("", PORT), Handler)
 
 
 def get_prefix(bot, message):
