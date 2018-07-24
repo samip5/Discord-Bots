@@ -13,3 +13,5 @@ Plex-bot/*/test.py
 
 # Develoment bot related
 Develoment-bot/config.ini
+
+*/.idea
